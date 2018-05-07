@@ -148,6 +148,7 @@ button {
 		}
 		.window-content {
 			min-height: 200px;
+			padding: 5px 10px;
 		}
 		&.active {
 			box-shadow: 1px 1px 10px rgba($blue, 0.5);

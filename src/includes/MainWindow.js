@@ -17,6 +17,7 @@ export default class MainWindow extends Component {
 				minimiseWindow={this.props.minimiseWindow}
 				minimised={openWindow.minimised}
 				{...this.props} >
+				{openWindow.content}
 			</Window>
 		)
 	}
