@@ -1,0 +1,22 @@
+html, body {
+	height: 100%;
+	background: #1a1a1a;
+	color: #fefefe;
+}
+
+html {
+	box-sizing: border-box;
+}
+
+*, :before, :after {
+	box-sizing: inherit;
+	outline: none;
+	transition: all 200ms ease-in-out;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+}
+
