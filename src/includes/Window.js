@@ -84,7 +84,8 @@ export default class Window extends Component {
 						transition: 'unset',
 						zIndex: this.props.order
 					}}
-					onClick={this.setActiveWindow} >
+					onClick={this.setActiveWindow}
+					onDoubleClick={this.maximise} >
 					<div className="toolbar">
 						<div className="window-title">{this.props.title}</div>
 						<div className="button-group">
