@@ -27,13 +27,14 @@ class App extends Component {
 		this.uniqueId = this.uniqueId || 0
 		return this.uniqueId++
 	}
-	newWindow(name) {
+	newWindow(name, content) {
 		let newId = this.nextId()
 		this.setState((state, props) => ({
 			openWindows: [...state.openWindows, {
 				id: newId,
 				name: name,
-				minimised: false
+				minimised: false,
+				content: content || 'Currently unavailable'
 			}],
 			windowOrder: [...state.windowOrder, newId]
 		}));
