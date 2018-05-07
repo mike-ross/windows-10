@@ -33,10 +33,6 @@ class App extends Component {
 			openWindows: [...state.openWindows, {
 				id: newId,
 				name: name,
-				position: {
-					top: 50+newId*10,
-					left: 50+newId*10
-				},
 				minimised: false
 			}],
 			windowOrder: [...state.windowOrder, newId]
