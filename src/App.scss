@@ -152,5 +152,22 @@ button {
 		&.active {
 			box-shadow: 1px 1px 10px rgba($blue, 0.5);
 		}
+		&.window-full {
+			top: 0 !important;
+			right: 0 !important;
+			bottom: 0 !important;
+			left: 0 !important;
+			transform: unset !important;
+			width: 100%;
+		}
+		&.window-minimised {
+			top: auto !important;
+			right: 50% !important;
+			bottom: 0 !important;
+			left: 50% !important;
+			transform: unset !important;
+			height: 0;
+			overflow: hidden;
+		}
 	}
 }

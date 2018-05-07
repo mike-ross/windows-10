@@ -18,6 +18,7 @@ class App extends Component {
 		this.newWindow = this.newWindow.bind(this)
 		this.setActive = this.setActive.bind(this)
 		this.unsetActive = this.unsetActive.bind(this)
+		this.minimiseWindow = this.minimiseWindow.bind(this)
 		this.closeWindow = this.closeWindow.bind(this)
 		this.showSidebar = this.showSidebar.bind(this)
 		this.hideSidebar = this.hideSidebar.bind(this)
@@ -35,7 +36,8 @@ class App extends Component {
 				position: {
 					top: 50+newId*10,
 					left: 50+newId*10
-				}
+				},
+				minimised: false
 			}],
 			windowOrder: [...state.windowOrder, newId]
 		}));
@@ -43,12 +45,23 @@ class App extends Component {
 	setActive(i) {
 		this.setState((state, props) => ({
 			desktopActive: false,
-			windowOrder: [...state.windowOrder.filter(activeWindow => activeWindow !== i), i]
+			windowOrder: [...state.windowOrder.filter(activeWindow => activeWindow !== i), i],
+			openWindows: state.openWindows.map(
+				openWindow => (openWindow.id !== i) ? openWindow : {...openWindow, minimised: false}
+			)
 		}));
 	}
 	unsetActive() {
 		this.setState((state, props) => ({
 			desktopActive: true,
+		}));
+	}
+	minimiseWindow(i) {
+		this.setState((state, props) => ({
+			openWindows: state.openWindows.map(
+				openWindow => (openWindow.id !== i) ? openWindow : {...openWindow, minimised: true}
+			),
+			windowOrder: [i, ...state.windowOrder.filter(activeWindow => activeWindow !== i)]
 		}));
 	}
 	closeWindow(i) {
@@ -82,6 +95,7 @@ class App extends Component {
 						openWindows={this.state.openWindows}
 						windowOrder={this.state.windowOrder}
 						desktopActive={this.state.desktopActive}
+						minimiseWindow={this.minimiseWindow}
 						closeWindow={this.closeWindow}
 						setActive={this.setActive} />
 					<Sidebar

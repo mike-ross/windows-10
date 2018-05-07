@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faWindowMinimize from '@fortawesome/fontawesome-free-regular/faWindowMinimize'
+import faSquare from '@fortawesome/fontawesome-free-regular/faSquare'
 import faTimes from '@fortawesome/fontawesome-free-solid/faTimes'
 import Draggable from 'react-draggable'
 
@@ -7,18 +9,38 @@ export default class Window extends Component {
 	constructor() {
 		super()
 
-		this.close = this.close.bind(this)
+		this.state = {
+			status: 'normal'
+		}
+
 		this.minimise = this.minimise.bind(this)
+		this.maximise = this.maximise.bind(this)
+		this.restore = this.restore.bind(this)
+		this.close = this.close.bind(this)
 		this.setActiveWindow = this.setActiveWindow.bind(this)
 	}
 	componentWillMount() {
 		this.setActiveWindow()
 	}
-	close() {
-		this.props.closeWindow(this.props.index)
+	minimise(e) {
+		e.stopPropagation()
+		this.props.minimiseWindow(this.props.index)
 	}
-	minimise() {
-		console.log('closing', this.props.index)
+	maximise(e) {
+		e.stopPropagation()
+		this.setState((state, props) => ({
+			status: 'full'
+		}));
+	}
+	restore(e) {
+		e.stopPropagation()
+		this.setState((state, props) => ({
+			status: 'normal'
+		}));
+	}
+	close(e) {
+		e.stopPropagation()
+		this.props.closeWindow(this.props.index)
 	}
 	setActiveWindow(e) {
 		if(e) {
@@ -33,7 +55,7 @@ export default class Window extends Component {
 				bounds="#main-window"
 				onStart={this.setActiveWindow} >
 				<div
-					className={'window' + (this.props.active ? ' active' : '')}
+					className={`window ${(this.props.minimised) ? 'window-minimised' : 'window-'+this.state.status} ${(this.props.active ? 'active' : '')}`}
 					style={{
 						display: 'block',
 						position: 'absolute',
@@ -45,7 +67,13 @@ export default class Window extends Component {
 					<div className="toolbar">
 						<div className="window-title">{this.props.title}</div>
 						<div className="button-group">
-							<button className="close" onClick={this.close}>
+							<button onClick={this.minimise}>
+								<FontAwesomeIcon icon={faWindowMinimize} />
+							</button>
+							<button onClick={this.maximise}>
+								<FontAwesomeIcon icon={faSquare} />
+							</button>
+							<button onClick={this.close}>
 								<FontAwesomeIcon icon={faTimes} />
 							</button>
 						</div>

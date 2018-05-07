@@ -18,6 +18,8 @@ export default class MainWindow extends Component {
 				}}
 				active={(!this.props.desktopActive && this.props.windowOrder.indexOf(openWindow.id) === this.props.windowOrder.length-1 ? true : false)}
 				order={this.props.windowOrder.indexOf(openWindow.id)}
+				minimiseWindow={this.props.minimiseWindow}
+				minimised={openWindow.minimised}
 				{...this.props} >
 			</Window>
 		)
